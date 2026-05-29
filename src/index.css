@@ -1,0 +1,390 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap');
+@import "tailwindcss";
+
+/* ============================================
+   TWENTY1GLOBAL — Warm Institutional Theme
+   Beige + Navy, Cormorant Garamond + Jost
+   Matches twenty1global.com
+   ============================================ */
+
+@theme {
+  --color-navy: #0D1B2A;
+  --color-navy-mid: #1A2E45;
+  --color-navy-soft: #253D56;
+  --color-navy-muted: #4A6480;
+  --color-navy-light: #7A9AB5;
+  --color-beige: #F5F0E8;
+  --color-beige-mid: #EDE7DB;
+  --color-beige-deep: #E2D9CA;
+  --color-beige-warm: #D6CAB5;
+  --color-white: #FDFAF6;
+  --color-border: rgba(13, 27, 42, 0.1);
+  --color-border-strong: rgba(13, 27, 42, 0.2);
+
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ─── Global Reset ─── */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-beige);
+  color: var(--color-navy);
+  font-weight: 300;
+  overflow-x: hidden;
+  line-height: 1;
+}
+
+a { text-decoration: none; color: inherit; }
+
+::selection {
+  background-color: var(--color-navy);
+  color: var(--color-beige);
+}
+
+/* ─── Typography ─── */
+.heading-hero {
+  font-family: var(--font-serif);
+  font-size: clamp(2.8rem, 6.5vw, 5.8rem);
+  font-weight: 300;
+  line-height: 1.07;
+  letter-spacing: -0.01em;
+  color: var(--color-navy);
+}
+.heading-hero em {
+  font-style: italic;
+  color: var(--color-navy-soft);
+}
+
+.heading-section {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.8vw, 3.2rem);
+  font-weight: 300;
+  line-height: 1.18;
+  color: var(--color-navy);
+}
+.heading-section em {
+  font-style: italic;
+  color: var(--color-navy-soft);
+}
+
+.heading-card {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--color-navy);
+}
+
+.heading-sub {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--color-navy);
+}
+
+.body-text {
+  font-family: var(--font-sans);
+  font-size: 0.93rem;
+  line-height: 1.9;
+  color: var(--color-navy-muted);
+}
+
+.body-intro {
+  font-family: var(--font-sans);
+  font-size: 0.97rem;
+  line-height: 1.85;
+  color: var(--color-navy-muted);
+  max-width: 500px;
+  font-weight: 300;
+}
+
+.label-text {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-navy-muted);
+}
+
+.eyebrow {
+  font-size: 0.62rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-navy-soft);
+  margin-bottom: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.eyebrow::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 1px;
+  background: var(--color-border-strong);
+}
+
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-navy-soft);
+  margin-bottom: 2rem;
+}
+
+/* ─── Buttons ─── */
+.btn-primary {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 400;
+  padding: 0.9rem 2.2rem;
+  background: var(--color-navy);
+  color: var(--color-beige);
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.2s;
+  display: inline-block;
+}
+.btn-primary:hover {
+  background: var(--color-navy-mid);
+  transform: translateY(-1px);
+}
+
+.btn-beige {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 400;
+  padding: 0.9rem 2.2rem;
+  background: var(--color-beige);
+  color: var(--color-navy);
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.2s;
+  display: inline-block;
+}
+.btn-beige:hover {
+  background: var(--color-white);
+  transform: translateY(-1px);
+}
+
+/* ─── Ticker ─── */
+.ticker {
+  overflow: hidden;
+  padding: 1.4rem 0;
+  background: var(--color-beige-mid);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+.ticker-track {
+  display: flex;
+  gap: 3.5rem;
+  width: max-content;
+  animation: ticker 28s linear infinite;
+}
+.ticker-item {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-navy-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.ticker-dot {
+  width: 3px;
+  height: 3px;
+  background: var(--color-navy-soft);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ─── Section Backgrounds ─── */
+.section { padding: 7rem 3.5rem; }
+.section-light { background: var(--color-white); }
+.section-mid { background: var(--color-beige-mid); }
+
+/* ─── Stat Numbers ─── */
+.stat-num {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 2.4rem;
+  font-weight: 300;
+  color: var(--color-navy-soft);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-navy-light);
+}
+
+/* ─── Cards ─── */
+.svc-card {
+  background: var(--color-beige);
+  padding: 2.5rem 1.8rem;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+.svc-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--color-navy);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s;
+}
+.svc-card:hover { background: var(--color-beige-deep); }
+.svc-card:hover::after { transform: scaleX(1); }
+
+.svc-num {
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  font-weight: 300;
+  color: rgba(13,27,42,0.1);
+  line-height: 1;
+  margin-bottom: 1.4rem;
+}
+
+.mkt-card {
+  padding: 2.5rem;
+  border: 1px solid rgba(13,27,42,0.12);
+  position: relative;
+  transition: border-color 0.3s, background 0.3s;
+  background: var(--color-white);
+}
+.mkt-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 36px;
+  height: 2px;
+  background: var(--color-navy-soft);
+}
+.mkt-card:hover {
+  border-color: rgba(13,27,42,0.3);
+  background: var(--color-beige);
+}
+
+.pillar {
+  background: var(--color-white);
+  padding: 2rem 1.8rem;
+  transition: background 0.3s;
+}
+.pillar:hover { background: var(--color-beige); }
+
+.why-card {
+  padding: 2.2rem;
+  border: 1px solid rgba(13,27,42,0.1);
+  background: var(--color-white);
+  transition: border-color 0.3s, transform 0.3s, background 0.3s;
+}
+.why-card:hover {
+  border-color: rgba(13,27,42,0.25);
+  transform: translateY(-3px);
+  background: var(--color-beige);
+}
+.why-roman {
+  font-family: var(--font-serif);
+  font-size: 1.9rem;
+  font-weight: 300;
+  color: var(--color-navy-soft);
+  margin-bottom: 0.9rem;
+  display: block;
+}
+
+.geo-tag {
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-navy-mid);
+  padding: 0.38rem 0.9rem;
+  border: 1px solid var(--color-border-strong);
+}
+
+/* ─── Process ─── */
+.proc-num {
+  width: 2.9rem;
+  height: 2.9rem;
+  border-radius: 50%;
+  border: 1px solid var(--color-border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.4rem;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--color-navy-soft);
+  background: var(--color-beige);
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── FMCG ─── */
+.fmcg-tag {
+  display: inline-block;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-white);
+  background: var(--color-navy-soft);
+  padding: 0.3rem 0.8rem;
+  margin-bottom: 1.4rem;
+}
+
+.fmcg-country {
+  background: var(--color-white);
+  padding: 2.5rem 2rem;
+  transition: background 0.3s;
+}
+.fmcg-country:hover { background: var(--color-beige); }
+
+.fmcg-callout {
+  margin-top: 2rem;
+  padding: 1.4rem 1.8rem;
+  background: var(--color-navy);
+  border-left: 3px solid var(--color-navy-soft);
+}
+
+/* ─── Lenis ─── */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+/* ─── Responsive ─── */
+@media (max-width: 1024px) {
+  .section { padding: 5rem 2rem; }
+}
+@media (max-width: 768px) {
+  .section { padding: 3.5rem 1.4rem; }
+}
+
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
