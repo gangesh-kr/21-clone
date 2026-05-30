@@ -24,6 +24,17 @@ export default function Navigation() {
 
     const hideNavbar = () => {
       if (isHoveredRef.current || menuOpenRef.current) return
+      const currentScrollY = window.scrollY
+      const hero = document.getElementById('home')
+      const heroHeight = hero ? hero.offsetHeight : window.innerHeight
+      if (currentScrollY < heroHeight) {
+        if (currentScrollY <= 80) {
+          setNavTheme('transparent')
+        } else {
+          setNavTheme('white')
+        }
+        return
+      }
       setNavTheme('hidden')
     }
 
@@ -126,7 +137,7 @@ export default function Navigation() {
           if (timeoutRef.current) clearTimeout(timeoutRef.current)
           timeoutRef.current = setTimeout(() => {
             if (!isHoveredRef.current && !menuOpenRef.current) {
-              setNavTheme('hidden')
+              hideNavbar()
             }
           }, 2000)
         }}
@@ -189,7 +200,7 @@ export default function Navigation() {
               if (timeoutRef.current) clearTimeout(timeoutRef.current)
               timeoutRef.current = setTimeout(() => {
                 if (!isHoveredRef.current && !menuOpenRef.current) {
-                  setNavTheme('hidden')
+                  hideNavbar()
                 }
               }, 2000)
             }

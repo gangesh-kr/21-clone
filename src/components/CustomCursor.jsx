@@ -4,24 +4,26 @@ import { motion, useMotionValue, useSpring } from 'framer-motion'
 export default function CustomCursor() {
   const [hovered, setHovered] = useState(false)
   const [hidden, setHidden] = useState(true)
+  const [isTouch, setIsTouch] = useState(false)
 
   const cursorX = useMotionValue(-100)
   const cursorY = useMotionValue(-100)
 
-  const springConfig = { damping: 45, stiffness: 400, mass: 0.4 }
+  const springConfig = { damping: 30, stiffness: 700, mass: 0.1 }
   const cursorSpringX = useSpring(cursorX, springConfig)
   const cursorSpringY = useSpring(cursorY, springConfig)
 
   useEffect(() => {
-    // Check if pointer events are supported (exclude touch devices)
-    if (window.matchMedia('(pointer: coarse)').matches) {
-      return
+    // Detect touch device via touch events rather than rigid media query
+    const handleTouchStart = () => {
+      setIsTouch(true)
     }
+    window.addEventListener('touchstart', handleTouchStart, { passive: true })
 
     const moveCursor = (e) => {
       cursorX.set(e.clientX)
       cursorY.set(e.clientY)
-      if (hidden) setHidden(false)
+      setHidden(false)
     }
 
     const handleMouseEnter = () => setHidden(false)
@@ -46,14 +48,15 @@ export default function CustomCursor() {
     observer.observe(document.body, { childList: true, subtree: true })
 
     return () => {
+      window.removeEventListener('touchstart', handleTouchStart)
       window.removeEventListener('mousemove', moveCursor)
       document.removeEventListener('mouseenter', handleMouseEnter)
       document.removeEventListener('mouseleave', handleMouseLeave)
       observer.disconnect()
     }
-  }, [hidden])
+  }, [])
 
-  if (hidden) return null
+  if (isTouch || hidden) return null
 
   return (
     <>
@@ -63,14 +66,15 @@ export default function CustomCursor() {
           left: cursorSpringX,
           top: cursorSpringY,
           translateX: '-50%',
-          translateY: '-50%'
+          translateY: '-50%',
+          boxShadow: '0 0 5px rgba(255, 255, 255, 0.4), inset 0 0 3px rgba(255, 255, 255, 0.1)'
         }}
         animate={{
           scale: hovered ? 1.6 : 1,
-          borderColor: hovered ? '#a5f3fc' : 'rgba(255, 255, 255, 0.4)',
-          backgroundColor: hovered ? 'rgba(165, 243, 252, 0.05)' : 'rgba(255, 255, 255, 0)'
+          borderColor: hovered ? '#1b365d' : 'rgba(27, 54, 93, 0.6)',
+          backgroundColor: hovered ? 'rgba(27, 54, 93, 0.15)' : 'rgba(27, 54, 93, 0)'
         }}
-        className="fixed w-9 h-9 rounded-full border border-white/40 pointer-events-none z-[9999] hidden md:block"
+        className="fixed w-9 h-9 rounded-full border-2 border-[#1b365d]/60 pointer-events-none z-[9999] hidden md:block"
         transition={{ type: 'spring', stiffness: 350, damping: 25 }}
       />
       {/* Inner Pinpoint Dot */}
@@ -79,13 +83,14 @@ export default function CustomCursor() {
           left: cursorX,
           top: cursorY,
           translateX: '-50%',
-          translateY: '-50%'
+          translateY: '-50%',
+          boxShadow: '0 0 3px rgba(255, 255, 255, 0.6)'
         }}
         animate={{
           scale: hovered ? 0.6 : 1,
-          backgroundColor: hovered ? '#2d628c' : '#ffffff'
+          backgroundColor: hovered ? '#1b365d' : '#1b365d'
         }}
-        className="fixed w-1.5 h-1.5 rounded-full bg-white pointer-events-none z-[9999] hidden md:block"
+        className="fixed w-1.5 h-1.5 rounded-full bg-[#1b365d] pointer-events-none z-[9999] hidden md:block"
       />
     </>
   )

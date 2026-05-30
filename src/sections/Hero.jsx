@@ -25,17 +25,17 @@ export default function Hero() {
     >
       <div className="hero-container relative z-10 w-full">
         <div className="max-w-[1100px]">
-          <div className="hero-eyebrow text-[#a3b3c2] flex items-center gap-4 text-[10px] tracking-[0.35em] uppercase mb-12">
+          <div className="hero-eyebrow text-[#1b365d] flex items-center gap-4 text-[10px] tracking-[0.35em] uppercase mb-12">
             Twenty1Global Trading
           </div>
 
-          <h1 className="hero-h1 heading-hero text-[#f4f6f8] mb-12">
+          <h1 className="hero-h1 heading-hero text-[#0a0e17] mb-12">
             Powering Global Trade.<br />
             Delivering Trusted Execution.<br />
             Managing Strategic Assets.
           </h1>
 
-          <p className="hero-sub body-intro text-[#a3b3c2] max-w-[620px] font-light leading-relaxed">
+          <p className="hero-sub body-intro text-[#2b3e50] max-w-[620px] font-light leading-relaxed">
             Headquartered in Dubai with a strategic presence in Geneva and Singapore. We leverage deep logistical depth, board-level risk management, and structured execution to connect critical resources with high-demand global markets.
           </p>
         </div>
@@ -44,16 +44,16 @@ export default function Hero() {
       {/* Corporate Institutional Stats */}
       <div className="absolute right-[10.3%] bottom-28 hidden md:flex flex-col gap-10 text-right z-10">
         <div className="hero-stat">
-          <span className="stat-num text-2xl font-sans tracking-[0.05em] text-[#f4f6f8] font-extralight uppercase">GLOBAL</span>
-          <span className="stat-label text-[9px] tracking-[0.25em] text-[#a3b3c2] block mt-1 uppercase">Operating Network</span>
+          <span className="stat-num text-2xl font-sans tracking-[0.05em] text-[#0a0e17] font-extralight uppercase">GLOBAL</span>
+          <span className="stat-label text-[9px] tracking-[0.25em] text-[#1b365d] block mt-1 uppercase">Operating Network</span>
         </div>
         <div className="hero-stat">
-          <span className="stat-num text-2xl font-sans tracking-[0.05em] text-[#f4f6f8] font-extralight uppercase">SECURE</span>
-          <span className="stat-label text-[9px] tracking-[0.25em] text-[#a3b3c2] block mt-1 uppercase">Airtight Compliance</span>
+          <span className="stat-num text-2xl font-sans tracking-[0.05em] text-[#0a0e17] font-extralight uppercase">SECURE</span>
+          <span className="stat-label text-[9px] tracking-[0.25em] text-[#1b365d] block mt-1 uppercase">Airtight Compliance</span>
         </div>
         <div className="hero-stat">
-          <span className="stat-num text-2xl font-sans tracking-[0.05em] text-[#f4f6f8] font-extralight uppercase">TRUSTED</span>
-          <span className="stat-label text-[9px] tracking-[0.25em] text-[#a3b3c2] block mt-1 uppercase">Strategic Capital</span>
+          <span className="stat-num text-2xl font-sans tracking-[0.05em] text-[#0a0e17] font-extralight uppercase">TRUSTED</span>
+          <span className="stat-label text-[9px] tracking-[0.25em] text-[#1b365d] block mt-1 uppercase">Strategic Capital</span>
         </div>
       </div>
     </section>

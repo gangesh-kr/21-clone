@@ -37,6 +37,7 @@ function MountainModel() {
   ])
 
   const modelRef = useRef()
+  const materialsRef = useRef([])
   const baseY = -5.5
 
   const isAlpine = modelPath === '/terrain_alpine.glb'
@@ -51,26 +52,37 @@ function MountainModel() {
     if (!modelRef.current) return
     const t = state.clock.getElapsedTime()
     const scrollY = window.scrollY
-    const maxScroll = document.documentElement.scrollHeight - window.innerHeight
-    const scrollPercent = maxScroll > 0 ? scrollY / maxScroll : 0
+    const heroHeight = window.innerHeight
+    const heroScrollPercent = Math.min(scrollY / heroHeight, 1.0)
 
     // Target values: mountain slowly shifts right and tilts based on scroll and mouse pointer
     const baseRotY = isAlpine ? 0.0 : -0.2
     const baseRotX = isAlpine ? 0.0 : 0.05
-    const targetRotY = baseRotY + Math.sin(t * 0.012) * 0.006 + state.pointer.x * 0.06 - scrollPercent * 0.25
-    const targetRotX = baseRotX + state.pointer.y * 0.025 + scrollPercent * 0.04
+    const targetRotY = baseRotY + Math.sin(t * 0.012) * 0.006 + state.pointer.x * 0.06 - heroScrollPercent * 0.25
+    const targetRotX = baseRotX + state.pointer.y * 0.025 + heroScrollPercent * 0.04
     
     // Add small translation parallax to the mountain on mouse movement
     const basePosX = 0.0
     const basePosY = isAlpine ? baseY + 1.2 : baseY
     const targetPosX = basePosX + state.pointer.x * 0.18
-    const targetPosY = basePosY - scrollPercent * 1.5 + state.pointer.y * 0.1
+    const targetPosY = basePosY - heroScrollPercent * 1.5 + state.pointer.y * 0.1
+
+    // Move mountain away from camera in Z-axis based on scroll
+    const basePosZ = isAlpine ? -6.5 : -7.5
+    const targetPosZ = basePosZ - heroScrollPercent * 28.0
 
     // Smoothly lerp towards target
     modelRef.current.rotation.y = THREE.MathUtils.lerp(modelRef.current.rotation.y, targetRotY, 0.05)
     modelRef.current.rotation.x = THREE.MathUtils.lerp(modelRef.current.rotation.x, targetRotX, 0.05)
     modelRef.current.position.x = THREE.MathUtils.lerp(modelRef.current.position.x, targetPosX, 0.05)
     modelRef.current.position.y = THREE.MathUtils.lerp(modelRef.current.position.y, targetPosY, 0.05)
+    modelRef.current.position.z = THREE.MathUtils.lerp(modelRef.current.position.z, targetPosZ, 0.05)
+
+    // Smoothly fade out mountain opacity as we scroll past 15% of the hero section
+    const targetOpacity = Math.max(0, Math.min(1, 1 - (heroScrollPercent - 0.15) / 0.55))
+    materialsRef.current.forEach((mat) => {
+      mat.opacity = THREE.MathUtils.lerp(mat.opacity, targetOpacity, 0.05)
+    })
   })
 
   // Full cinematic material stack
@@ -106,6 +118,7 @@ function MountainModel() {
     perlinNoise.repeat.set(12, 12)
     perlinNoise.anisotropy = 16
 
+    const mats = []
     scene.traverse((child) => {
       if (child.isMesh) {
         child.castShadow = false
@@ -114,7 +127,9 @@ function MountainModel() {
         if (child.material) {
           // Base photographic texture
           child.material.map = mountainTexture
-          child.material.color.setRGB(1.0, 1.0, 1.0) // Set to pure white so the map colors show through fully
+          child.material.color.setRGB(0.9, 0.9, 0.95) // soft slate-gray white
+          child.material.transparent = true
+          mats.push(child.material)
 
           // Apply primary physical textures
           child.material.normalMap = rockNormal
@@ -126,13 +141,13 @@ function MountainModel() {
 
           // Use perlinNoise as a roughnessMap to add lighting variance
           child.material.roughnessMap = perlinNoise
-          child.material.roughness = 0.92
-          child.material.metalness = 0.0
-          child.material.envMapIntensity = 0.12
+          child.material.roughness = 0.85 // catch specular highlights
+          child.material.metalness = 0.05 // add subtle metallic reflection
+          child.material.envMapIntensity = 0.5 // boost reflection contrast
 
           // Use noiseTexture as a high-frequency height bump map
           child.material.bumpMap = noiseTexture
-          child.material.bumpScale = 0.035
+          child.material.bumpScale = 0.05 // increase bump details
 
           // GPU-level shader injection to blend the second normal map (noiseSolidNormal) as a detail layer
           child.material.onBeforeCompile = (shader) => {
@@ -161,6 +176,7 @@ function MountainModel() {
         }
       }
     })
+    materialsRef.current = mats
   }, [scene, mountainTexture, rockNormal, noiseSolidNormal, noiseTexture, perlinNoise])
 
   return (
@@ -171,64 +187,6 @@ function MountainModel() {
       position={modelPosition}
       rotation={modelRotation}
     />
-  )
-}
-
-// Floating dust particle layer with scroll sensitivity
-function FloatingParticles({ count = 180 }) {
-  const pointsRef = useRef()
-
-  const [positions, speeds] = useMemo(() => {
-    const pos = new Float32Array(count * 3)
-    const spd = new Float32Array(count)
-    for (let i = 0; i < count; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 30
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 16
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 12 - 4
-      spd[i] = 0.015 + Math.random() * 0.02
-    }
-    return [pos, spd]
-  }, [count])
-
-  useFrame((state) => {
-    if (!pointsRef.current) return
-    const t = state.clock.getElapsedTime()
-    const scrollY = window.scrollY
-    const maxScroll = document.documentElement.scrollHeight - window.innerHeight
-    const scrollPercent = maxScroll > 0 ? scrollY / maxScroll : 0
-
-    const positionsArray = pointsRef.current.geometry.attributes.position.array
-
-    for (let i = 0; i < count; i++) {
-      // Particles speed up their upward drift as scroll progress increases
-      positionsArray[i * 3 + 1] += speeds[i] * (1.0 + scrollPercent * 4.0)
-      positionsArray[i * 3] += Math.sin(t * 0.5 + i) * 0.0015
-
-      // Wrap particles back to the bottom when they go off screen
-      if (positionsArray[i * 3 + 1] > 8) {
-        positionsArray[i * 3 + 1] = -8
-      }
-    }
-    pointsRef.current.geometry.attributes.position.needsUpdate = true
-  })
-
-  return (
-    <points ref={pointsRef}>
-      <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          args={[positions, 3]}
-        />
-      </bufferGeometry>
-      <pointsMaterial
-        size={0.055}
-        color="#a5f3fc"
-        transparent
-        opacity={0.35}
-        sizeAttenuation
-        depthWrite={false}
-      />
-    </points>
   )
 }
 
@@ -275,34 +233,34 @@ function DynamicLighting() {
     const maxScroll = document.documentElement.scrollHeight - window.innerHeight
     const scrollPercent = maxScroll > 0 ? scrollY / maxScroll : 0
 
-    // Smoothly lerp intensities from bright daylight (at scroll 0) to darker cinematic navy
+    // Smoothly lerp intensities from dramatic daylight (at scroll 0) to darker cinematic navy
     if (ambLightRef.current) {
-      ambLightRef.current.intensity = THREE.MathUtils.lerp(0.75, 0.4, transitionPercent)
+      ambLightRef.current.intensity = THREE.MathUtils.lerp(0.28, 0.15, transitionPercent)
     }
     if (hemiLightRef.current) {
-      hemiLightRef.current.intensity = THREE.MathUtils.lerp(0.45, 0.25, transitionPercent)
+      hemiLightRef.current.intensity = THREE.MathUtils.lerp(0.18, 0.1, transitionPercent)
     }
     if (dirLightRef.current) {
-      const baseIntensity = THREE.MathUtils.lerp(0.9, 0.65, transitionPercent)
-      dirLightRef.current.intensity = THREE.MathUtils.lerp(baseIntensity, 0.25, scrollPercent)
+      const baseIntensity = THREE.MathUtils.lerp(1.4, 0.8, transitionPercent)
+      dirLightRef.current.intensity = THREE.MathUtils.lerp(baseIntensity, 0.2, scrollPercent)
     }
   })
 
   return (
     <>
-      <ambientLight ref={ambLightRef} intensity={0.75} color="#e4ecf2" />
-      <hemisphereLight ref={hemiLightRef} skyColor="#d5e0ea" groundColor="#f0ede8" intensity={0.45} />
+      <ambientLight ref={ambLightRef} intensity={0.28} color="#e4ecf2" />
+      <hemisphereLight ref={hemiLightRef} skyColor="#d5e0ea" groundColor="#f0ede8" intensity={0.18} />
 
       <directionalLight
         ref={dirLightRef}
-        position={[-10, 12, 8]}
-        intensity={0.9}
-        color="#eef2f6"
+        position={[-12, 10, 6]}
+        intensity={1.4}
+        color="#ffffff"
       />
 
       <directionalLight
         position={[8, 5, -3]}
-        intensity={0.18}
+        intensity={0.15}
         color="#e0e8f0"
       />
     </>
@@ -324,7 +282,8 @@ function AtmosphericFog() {
     const colorEnd = new THREE.Color('#0a0e17')
     const currentFogColor = colorStart.lerp(colorEnd, transitionPercent)
 
-    const targetDensity = 0.015 + scrollPercent * 0.015
+    // Make fog density significantly higher at the bottom to obscure the mountain
+    const targetDensity = 0.015 + scrollPercent * 0.045
     if (scene.fog) {
       scene.fog.color.copy(currentFogColor)
       scene.fog.density = THREE.MathUtils.lerp(scene.fog.density, targetDensity, 0.05)
@@ -370,6 +329,27 @@ function FlowingClouds({ isAlpine }) {
     // Slow organic wind drift movement in X and Z directions
     groupRef.current.position.x = Math.sin(t * 0.03) * 1.2
     groupRef.current.position.z = Math.cos(t * 0.015) * 0.5
+
+    const scrollY = window.scrollY
+    const heroHeight = window.innerHeight
+    const heroScrollPercent = Math.min(scrollY / heroHeight, 1.0)
+    
+    // Fade out all clouds as we scroll past 20% of the hero section
+    const targetOpacityMultiplier = Math.max(0, Math.min(1, 1 - (heroScrollPercent - 0.2) / 0.6)) // goes to 0 at 80% scroll
+    
+    groupRef.current.traverse((child) => {
+      if (child.isMesh && child.material) {
+        child.material.transparent = true
+        if (child.userData.originalOpacity === undefined) {
+          child.userData.originalOpacity = child.material.opacity !== undefined ? child.material.opacity : 0.8
+        }
+        child.material.opacity = THREE.MathUtils.lerp(
+          child.material.opacity,
+          child.userData.originalOpacity * targetOpacityMultiplier,
+          0.05
+        )
+      }
+    })
   })
 
   // Set positions relative to whether we render terrain_alpine or standard hero mountain
@@ -378,48 +358,67 @@ function FlowingClouds({ isAlpine }) {
 
   return (
     <group ref={groupRef}>
-      {/* Cloud 1: Main front cloud covering the lower section and base */}
+      {/* Layer 1 (Lowest Deck) */}
       <Cloud
         texture="/cloud-particle.png"
-        position={[0, -2.8 + yBase, zBase + 0.6]}
-        speed={0.15}
-        opacity={0.42}
-        segments={22}
-        bounds={[14, 1.6, 5]}
+        position={[0, -3.2 + yBase, zBase + 1.5]}
+        speed={0.1}
+        opacity={0.85}
+        segments={12}
+        bounds={[18, 1.2, 5]}
         color="#cbd3db"
       />
 
-      {/* Cloud 2: Drifts over the left ridge */}
+      {/* Layer 2 (Middle Deck) */}
       <Cloud
         texture="/cloud-particle.png"
-        position={[-6, -1.2 + yBase, zBase + 0.2]}
-        speed={0.1}
-        opacity={0.38}
-        segments={16}
-        bounds={[8, 1.4, 3]}
-        color="#dcdfe3"
-      />
-
-      {/* Cloud 3: Drifts over the right ridge */}
-      <Cloud
-        texture="/cloud-particle.png"
-        position={[6, -0.8 + yBase, zBase + 0.2]}
+        position={[-5, -2.5 + yBase, zBase + 1.0]}
         speed={0.08}
-        opacity={0.35}
-        segments={16}
-        bounds={[8, 1.4, 3]}
+        opacity={0.85}
+        segments={10}
+        bounds={[12, 1.0, 4]}
         color="#dcdfe3"
       />
 
-      {/* Cloud 4: Soft upper layer shrouding the peaks directly */}
       <Cloud
         texture="/cloud-particle.png"
-        position={[0, 0.4 + yBase, zBase - 0.2]}
-        speed={0.06}
-        opacity={0.28}
-        segments={20}
-        bounds={[12, 1.8, 4]}
-        color="#f4f6f8"
+        position={[5, -2.5 + yBase, zBase + 1.0]}
+        speed={0.07}
+        opacity={0.85}
+        segments={10}
+        bounds={[12, 1.0, 4]}
+        color="#dcdfe3"
+      />
+
+      {/* Layer 3 (Upper Base - Just below the peak to blend base into clouds) */}
+      <Cloud
+        texture="/cloud-particle.png"
+        position={[0, -1.5 + yBase, zBase + 0.5]}
+        speed={0.12}
+        opacity={0.75}
+        segments={12}
+        bounds={[14, 0.8, 3]}
+        color="#cbd3db"
+      />
+
+      <Cloud
+        texture="/cloud-particle.png"
+        position={[-4, -1.3 + yBase, zBase + 0.3]}
+        speed={0.08}
+        opacity={0.7}
+        segments={8}
+        bounds={[8, 0.8, 3]}
+        color="#dcdfe3"
+      />
+
+      <Cloud
+        texture="/cloud-particle.png"
+        position={[4, -1.3 + yBase, zBase + 0.3]}
+        speed={0.09}
+        opacity={0.7}
+        segments={8}
+        bounds={[8, 0.8, 3]}
+        color="#dcdfe3"
       />
     </group>
   )
@@ -428,6 +427,7 @@ function FlowingClouds({ isAlpine }) {
 export default function MountainScene() {
   const wrapperRef = useRef()
   const [modelPath, setModelPath] = useState('/hero_mountain.glb')
+  const [isHeroVisible, setIsHeroVisible] = useState(true)
 
   useEffect(() => {
     fetch('/terrain_alpine.glb', { method: 'HEAD' })
@@ -444,9 +444,18 @@ export default function MountainScene() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!wrapperRef.current) return
       const scrollY = window.scrollY
-      const transitionPercent = Math.min(scrollY / window.innerHeight, 1.0)
+      const heroHeight = window.innerHeight
+
+      // Unmount canvas if scrolled past 120% of hero height to free GPU resources
+      if (scrollY < heroHeight * 1.2) {
+        setIsHeroVisible(true)
+      } else {
+        setIsHeroVisible(false)
+      }
+
+      if (!wrapperRef.current) return
+      const transitionPercent = Math.min(scrollY / heroHeight, 1.0)
 
       // Interpolate background color of wrapper from glacier gray #cbd3db (rgb 203, 211, 219) to deep charcoal navy #0a0e17 (rgb 10, 14, 23)
       const r = Math.round(203 + (10 - 203) * transitionPercent)
@@ -454,35 +463,36 @@ export default function MountainScene() {
       const b = Math.round(219 + (23 - 219) * transitionPercent)
       wrapperRef.current.style.backgroundColor = `rgb(${r}, ${g}, ${b})`
     }
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
     <div ref={wrapperRef} className="fixed inset-0 w-full h-full pointer-events-none z-0 overflow-hidden bg-[#cbd3db] transition-colors duration-200">
-      <Canvas
-        camera={{ position: [0, 0.3, 5], fov: 42 }}
-        gl={{
-          antialias: true,
-          alpha: true,
-          toneMapping: THREE.ACESFilmicToneMapping,
-          toneMappingExposure: 1.05,
-        }}
-        style={{ background: 'transparent', width: '100%', height: '100%' }}
-      >
-        <DynamicLighting />
-        <AtmosphericFog />
+      {isHeroVisible && (
+        <Canvas
+          camera={{ position: [0, 0.3, 5], fov: 42 }}
+          gl={{
+            antialias: true,
+            alpha: true,
+            toneMapping: THREE.ACESFilmicToneMapping,
+            toneMappingExposure: 1.05,
+          }}
+          style={{ background: 'transparent', width: '100%', height: '100%' }}
+        >
+          <DynamicLighting />
+          <AtmosphericFog />
 
-        <Suspense fallback={null}>
-          <MountainModel modelPath={modelPath} isAlpine={isAlpine} />
-          <FloatingParticles />
-          <FlowingClouds isAlpine={isAlpine} />
-        </Suspense>
+          <Suspense fallback={null}>
+            <MountainModel modelPath={modelPath} isAlpine={isAlpine} />
+            <FlowingClouds isAlpine={isAlpine} />
+          </Suspense>
 
-        <CameraRig />
-        <CinematicPost />
-      </Canvas>
+          <CameraRig />
+          <CinematicPost />
+        </Canvas>
+      )}
     </div>
   )
 }
