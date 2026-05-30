@@ -1,48 +1,57 @@
-import { useEffect, useRef } from 'react'
-import { gsap } from '../lib/animations'
+import { motion } from 'framer-motion'
 
 export default function Markets() {
-  const sectionRef = useRef(null)
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('.mkt-anim', {
-        y: 30,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.12,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: '.mkt-grid', start: 'top 80%' },
-      })
-    }, sectionRef)
-    return () => ctx.revert()
-  }, [])
-
   return (
-    <section id="markets" ref={sectionRef} className="section section-mid">
-      <div className="eyebrow">Markets &amp; Industries</div>
-      <h2 className="heading-section mb-14">
-        Key Sectors &amp;<br/><em>Operating Regions</em>
-      </h2>
+    <section id="markets" className="section border-t border-[#2b3e50]/20">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-10%' }}
+        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        className="max-w-7xl mx-auto"
+      >
+        <span className="eyebrow">MARKETS</span>
+        <h2 className="heading-section mb-20">
+          OPERATING SECTORS &amp;<br />GLOBAL COMMODITIES
+        </h2>
 
-      <div className="mkt-grid grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
-        {[
-          { title: 'Oil & Gas', text: 'Navigating one of the world\'s most complex and high-value commodity sectors with deep expertise in sourcing, negotiation, and regulatory compliance.' },
-          { title: 'Industrial Commodities', text: 'Procurement and distribution of essential industrial goods, with a strong focus on supply reliability and quality assurance across global supply chains.' },
-          { title: 'Energy Resources', text: 'Strategic trading of energy commodities across key demand centres, leveraging our network to identify and secure optimal trade opportunities.' },
-        ].map((m) => (
-          <div key={m.title} className="mkt-card mkt-anim">
-            <h3 className="font-serif text-[1.35rem] font-normal text-[var(--color-navy)] mb-3">{m.title}</h3>
-            <p className="text-[0.8rem] text-[var(--color-navy-muted)] leading-[1.72]">{m.text}</p>
-          </div>
-        ))}
-      </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 mb-20">
+          {[
+            {
+              title: 'Oil & Gas',
+              text: 'Active sourcing, contract structuring, and compliance navigation for crude oil, refined distillates, and specialized gas resources.'
+            },
+            {
+              title: 'Industrial Materials',
+              text: 'Coordination of critical minerals, chemical products, and bulk industrial inputs for manufacturing clusters worldwide.'
+            },
+            {
+              title: 'Energy Resources',
+              text: 'Providing global supply nodes with reliable energy allocations, managing transit risk and hedging credit exposures.'
+            },
+          ].map((m, index) => (
+            <motion.div
+              key={m.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.8 }}
+              className="border-t border-[#2b3e50]/20 pt-8"
+            >
+              <h3 className="text-lg font-sans uppercase tracking-[0.15em] text-[#f4f6f8] mb-4 font-light">{m.title}</h3>
+              <p className="text-[13px] text-[#a3b3c2] leading-relaxed font-light">{m.text}</p>
+            </motion.div>
+          ))}
+        </div>
 
-      <div className="flex flex-wrap gap-3 pt-8 border-t border-[rgba(13,27,42,0.1)]">
-        {['Middle East', 'Asia', 'Europe', 'CIS Regions'].map((geo) => (
-          <span key={geo} className="geo-tag">{geo}</span>
-        ))}
-      </div>
+        <div className="flex flex-wrap gap-x-8 gap-y-3 pt-8 border-t border-[#2b3e50]/20">
+          {['Middle East', 'Asia Pacific', 'Western Europe', 'CIS Regions'].map((geo) => (
+            <span key={geo} className="text-[10px] tracking-[0.25em] text-[#a3b3c2] uppercase font-light">
+              {geo}
+            </span>
+          ))}
+        </div>
+      </motion.div>
     </section>
   )
 }

@@ -1,15 +1,18 @@
 import { useEffect } from 'react'
 import { initSmoothScroll } from './lib/smooth-scroll'
 import Navigation from './components/Navigation'
+import DotNavigation from './components/DotNavigation'
+import CustomCursor from './components/CustomCursor'
+import MountainScene from './components/MountainScene'
 import Hero from './sections/Hero'
-import Ticker from './components/Ticker'
 import About from './sections/About'
 import Services from './sections/Services'
 import Markets from './sections/Markets'
+import MapSection from './sections/MapSection'
 import Process from './sections/Process'
 import FMCG from './sections/FMCG'
+import Sustainability from './sections/Sustainability'
 import WhyUs from './sections/WhyUs'
-import CTABanner from './components/CTABanner'
 import Contact from './sections/Contact'
 import Footer from './components/Footer'
 
@@ -20,18 +23,24 @@ function App() {
 
   return (
     <>
+      <CustomCursor />
       <Navigation />
+      <DotNavigation />
 
-      <main>
+      {/* Persistent Fullscreen fixed WebGL Scene Layer */}
+      <MountainScene />
+
+      {/* Content overlays cleanly above canvas */}
+      <main className="relative z-10">
         <Hero />
-        <Ticker />
         <About />
         <Services />
         <Markets />
+        <MapSection />
         <Process />
         <FMCG />
+        <Sustainability />
         <WhyUs />
-        <CTABanner />
         <Contact />
       </main>
 

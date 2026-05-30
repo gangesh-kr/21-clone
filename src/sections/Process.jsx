@@ -1,50 +1,51 @@
-import { useEffect, useRef } from 'react'
-import { gsap } from '../lib/animations'
+import { motion } from 'framer-motion'
 
 const STEPS = [
-  { num: '1', title: 'Requirement Analysis', text: 'Understanding precise needs, volumes, and timelines of our clients and partners.' },
-  { num: '2', title: 'Supplier Identification', text: 'Sourcing from a vetted global network of reliable, quality-assured commodity suppliers.' },
-  { num: '3', title: 'Negotiation & Structuring', text: 'Securing the best terms through expert deal structuring and commercial negotiation.' },
-  { num: '4', title: 'Documentation & Compliance', text: 'Full regulatory compliance and airtight documentation across all jurisdictions.' },
-  { num: '5', title: 'Logistics & Delivery', text: 'End-to-end coordination of logistics to deliver on time, every time.' },
+  { num: 'I', title: 'Requirement Analysis', text: 'Detailing volumes, delivery timelines, product specifications, and quality parameters.' },
+  { num: 'II', title: 'Sourcing & Verification', text: 'Engaging our verified producer network to secure allocation and confirm compliance.' },
+  { num: 'III', title: 'Commercial Structuring', text: 'Formulating legal structures, credit facilities, risk hedging, and purchase terms.' },
+  { num: 'IV', title: 'Regulatory Compliance', text: 'Preparing customs files, maritime documents, certificates of origin, and compliance clearing.' },
+  { num: 'V', title: 'Logistics Execution', text: 'Coordinating vessel booking, freight tracking, cargo inspections, and terminal handovers.' },
 ]
 
 export default function Process() {
-  const sectionRef = useRef(null)
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('.proc-anim', {
-        y: 30,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.12,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: '.proc-grid', start: 'top 80%' },
-      })
-    }, sectionRef)
-    return () => ctx.revert()
-  }, [])
-
   return (
-    <section id="process" ref={sectionRef} className="section section-light">
-      <div className="eyebrow">Our Process</div>
-      <h2 className="heading-section mb-14">
-        Five Steps to<br/><em>Flawless Execution</em>
-      </h2>
+    <section id="process" className="section border-t border-[#2b3e50]/20">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-10%' }}
+        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        className="max-w-7xl mx-auto"
+      >
+        <span className="eyebrow">OUR PROCESS</span>
+        <h2 className="heading-section mb-20">
+          FIVE STAGES OF<br />FLAWLESS EXECUTION
+        </h2>
 
-      <div className="proc-grid grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 md:gap-4 relative">
-        {/* Connecting line (desktop only) */}
-        <div className="hidden lg:block absolute top-[1.45rem] left-[10%] right-[10%] h-px bg-[rgba(13,27,42,0.15)]" />
-
-        {STEPS.map((step) => (
-          <div key={step.num} className="proc-anim flex flex-col items-center text-center md:flex-col md:items-center md:text-center">
-            <div className="proc-num">{step.num}</div>
-            <h4 className="heading-sub mb-2">{step.title}</h4>
-            <p className="text-[0.77rem] text-[var(--color-navy-muted)] leading-[1.65]">{step.text}</p>
-          </div>
-        ))}
-      </div>
+        <div className="flex flex-col border-b border-[#2b3e50]/20">
+          {STEPS.map((step, index) => (
+            <motion.div
+              key={step.num}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.08, duration: 0.8 }}
+              className="border-t border-[#2b3e50]/20 py-8 grid grid-cols-1 md:grid-cols-12 gap-4 items-baseline"
+            >
+              <div className="md:col-span-1 text-[11px] tracking-[0.25em] text-[#5d7488] font-mono">
+                {step.num}
+              </div>
+              <div className="md:col-span-4">
+                <h4 className="heading-sub font-light text-[#f4f6f8]">{step.title}</h4>
+              </div>
+              <div className="md:col-span-7">
+                <p className="text-[13px] text-[#a3b3c2] leading-relaxed font-light">{step.text}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
     </section>
   )
 }
