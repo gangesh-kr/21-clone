@@ -29,7 +29,7 @@ const SERVICES = [
 
 export default function Services() {
   return (
-    <section id="services" className="section border-t border-border">
+    <section id="services" className="section">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

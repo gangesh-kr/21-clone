@@ -8,7 +8,7 @@ const OFFICES = [
 
 export default function MapSection() {
   return (
-    <section id="markets-map" className="section border-t border-border">
+    <section id="markets-map" className="section">
       <div className="max-w-7xl mx-auto">
         
         {/* Header */}

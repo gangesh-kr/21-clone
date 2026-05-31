@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 
 export default function Markets() {
   return (
-    <section id="markets" className="section border-t border-border">
+    <section id="markets" className="section">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

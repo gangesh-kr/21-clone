@@ -34,7 +34,7 @@ export default function CloudBackground() {
       }
 
       reset(init = false) {
-        this.scale = Math.random() * 2.2 + 1.6 // Huge volumetric scales
+        this.scale = Math.random() * 9.2 + 5.6 // Huge volumetric scales
         this.w = 512 * this.scale
         this.h = 512 * this.scale
 
@@ -49,9 +49,9 @@ export default function CloudBackground() {
         // Spawn across height with padding
         this.y = Math.random() * (height - this.h * 0.4) - this.h * 0.3
 
-        this.vx = Math.random() * 0.08 + 0.04 // extremely slow, majestic drift
-        this.vy = (Math.random() - 0.5) * 0.02 // barely noticeable vertical drift
-        this.opacity = Math.random() * 0.16 + 0.08 // low opacity for soft blending
+        this.vx = Math.random() * 5// extremely slow, majestic drift
+        this.vy = (Math.random() - 0.5) * 0.3 // barely noticeable vertical drift
+        this.opacity = Math.random() * 0.2 + 0.1 // slightly higher opacity for contrast on background image
         this.rotation = Math.random() * Math.PI * 2
         this.vRotation = (Math.random() - 0.5) * 0.00015 // extremely slow rotation
         this.depth = Math.random() * 0.4 + 0.6 // depth factor for parallax (0.6 to 1.0)
@@ -165,7 +165,7 @@ export default function CloudBackground() {
     >
       <canvas
         ref={canvasRef}
-        className="w-full h-full opacity-65"
+        className="w-full h-full opacity-80"
       />
     </div>
   )

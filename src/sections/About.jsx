@@ -5,11 +5,27 @@ export default function About() {
   return (
     <section
       id="about"
-      className="section border-t border-border overflow-hidden"
+      className="section border-none overflow-hidden"
       style={{
-        background: 'radial-gradient(circle at center, #f4f6f8 35%, #cbd3db 100%)',
+        backgroundImage: "url('/about_clouds_bg.png')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
       }}
     >
+      {/* Seamless blend overlays at top and bottom */}
+      <div
+        className="absolute top-0 left-0 right-0 h-48 pointer-events-none z-10"
+        style={{
+          background: 'linear-gradient(to bottom, var(--color-charcoal-navy, #f4f6f8) 0%, transparent 100%)',
+        }}
+      />
+      <div
+        className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none z-10"
+        style={{
+          background: 'linear-gradient(to top, var(--color-charcoal-navy, #f4f6f8) 0%, transparent 100%)',
+        }}
+      />
+
       {/* Volumetric flowing cloud points background */}
       <CloudBackground />
 

@@ -10,7 +10,7 @@ const STEPS = [
 
 export default function Process() {
   return (
-    <section id="process" className="section border-t border-border">
+    <section id="process" className="section">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

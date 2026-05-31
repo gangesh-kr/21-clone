@@ -11,7 +11,7 @@ const ADVANTAGES = [
 
 export default function WhyUs() {
   return (
-    <section id="why" className="section border-t border-border">
+    <section id="why" className="section">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

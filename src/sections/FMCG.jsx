@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 
 export default function FMCG() {
   return (
-    <section id="fmcg" className="section border-t border-border">
+    <section id="fmcg" className="section">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
