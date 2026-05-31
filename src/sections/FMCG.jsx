@@ -36,7 +36,7 @@ export default function FMCG() {
               text: 'Leveraging trade routes to connect consumer products with high-demand distribution links across India and Southern Asia.'
             },
           ].map((country) => (
-            <div key={country.num} className="border-t border-border pt-6">
+            <div key={country.num} className="pt-6">
               <span className="text-[10px] tracking-[0.25em] text-text-muted font-mono block mb-2">{country.num}</span>
               <h4 className="heading-sub font-light mb-3 text-text-primary">{country.title}</h4>
               <p className="text-[13px] text-text-muted leading-relaxed font-light">{country.text}</p>

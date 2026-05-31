@@ -27,7 +27,7 @@ export default function MapSection() {
         </div>
 
         {/* Minimal Typographic Layout for Hubs */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pt-12 border-t border-border">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pt-12">
           {OFFICES.map((office) => (
             <div key={office.name} className="flex flex-col gap-3">
               <span className="text-[10px] tracking-[0.25em] text-text-muted font-mono">{office.region}</span>

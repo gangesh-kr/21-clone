@@ -159,9 +159,8 @@ export default function Navigation() {
             <li key={href}>
               <a
                 href={href}
-                className={`nav-menu-link text-[11px] font-sans font-light tracking-[0.25em] uppercase transition-colors duration-300 relative pb-1 ${
-                  activeSection === href ? 'active' : ''
-                }`}
+                className={`nav-menu-link text-[11px] font-sans font-light tracking-[0.25em] uppercase transition-colors duration-300 relative pb-1 ${activeSection === href ? 'active' : ''
+                  }`}
                 onClick={(e) => {
                   e.preventDefault()
                   document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })

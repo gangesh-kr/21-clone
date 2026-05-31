@@ -53,7 +53,7 @@ export default function Services() {
         </div>
 
         {/* Vertical typographics lists */}
-        <div className="flex flex-col border-b border-border">
+        <div className="flex flex-col">
           {SERVICES.map((svc, index) => (
             <motion.div
               key={svc.num}
@@ -61,7 +61,7 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.8 }}
-              className="border-t border-border py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start hover:text-text-primary transition-colors group"
+              className="py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start hover:text-text-primary transition-colors group"
             >
               <div className="lg:col-span-1 text-[11px] tracking-[0.25em] text-text-muted font-mono">
                 {svc.num}

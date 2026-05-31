@@ -61,7 +61,7 @@ export default function Sustainability() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.8 }}
-              className="border-t border-border pt-8"
+              className="pt-8"
             >
               <h3 className="text-lg font-sans uppercase tracking-[0.15em] text-text-primary mb-4 font-light">
                 {sector.title}

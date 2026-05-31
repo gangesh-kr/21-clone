@@ -56,7 +56,7 @@ export default function About() {
             { num: '03', title: 'Capital Protection', text: 'Sophisticated risk mitigation and credit frameworks protecting global capital in high-value resource movements.' },
             { num: '04', title: 'Market Intelligence', text: 'Data-driven insights and structured commercial agreements ensuring optimal pricing terms across key demand centers.' }
           ].map((pillar) => (
-            <div key={pillar.num} className="border-t border-border pt-6">
+            <div key={pillar.num} className="pt-6">
               <div className="flex items-baseline justify-between mb-3">
                 <h4 className="heading-sub font-light">{pillar.title}</h4>
                 <span className="text-[10px] tracking-[0.2em] text-text-muted font-mono">{pillar.num}</span>

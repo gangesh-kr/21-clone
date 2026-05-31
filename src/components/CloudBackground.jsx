@@ -45,7 +45,7 @@ export default function CloudBackground() {
           // Spawn just off the left edge to drift right
           this.x = -this.w
         }
-        
+
         // Spawn across height with padding
         this.y = Math.random() * (height - this.h * 0.4) - this.h * 0.3
 
@@ -71,11 +71,11 @@ export default function CloudBackground() {
       draw(parallaxX, parallaxY) {
         ctx.save()
         ctx.globalAlpha = this.opacity
-        
+
         // Shift drawing coordinates based on mouse parallax and depth
         const drawX = this.x + this.w / 2 + parallaxX * this.depth
         const drawY = this.y + this.h / 2 + parallaxY * this.depth
-        
+
         ctx.translate(drawX, drawY)
         ctx.rotate(this.rotation)
         ctx.drawImage(cloudImg, -this.w / 2, -this.h / 2, this.w, this.h)

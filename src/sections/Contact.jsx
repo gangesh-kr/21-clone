@@ -15,7 +15,7 @@ export default function Contact() {
           SECURE CONNECTION HUBS
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 pt-12 border-t border-border">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 pt-12">
           <div>
             <div className="text-[10px] tracking-[0.25em] text-text-muted uppercase font-light mb-3">HQ LOCATION</div>
             <div className="text-sm text-text-primary font-light leading-relaxed">
