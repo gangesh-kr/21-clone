@@ -19,36 +19,36 @@ export default function Navigation() {
   const isHoveredRef = useRef(false)
   const menuOpenRef = useRef(false)
 
-  useEffect(() => {
-    let lastScrollY = window.scrollY
-
-    const hideNavbar = () => {
-      if (isHoveredRef.current || menuOpenRef.current) return
-      const currentScrollY = window.scrollY
-      const hero = document.getElementById('home')
-      const heroHeight = hero ? hero.offsetHeight : window.innerHeight
-      if (currentScrollY < heroHeight) {
-        if (currentScrollY <= 80) {
-          setNavTheme('transparent')
-        } else {
-          setNavTheme('white')
-        }
-        return
-      }
-      setNavTheme('hidden')
-    }
-
-    const showNavbar = () => {
-      const currentScrollY = window.scrollY
+  const hideNavbar = () => {
+    if (isHoveredRef.current || menuOpenRef.current) return
+    const currentScrollY = window.scrollY
+    const hero = document.getElementById('home')
+    const heroHeight = hero ? hero.offsetHeight : window.innerHeight
+    if (currentScrollY < heroHeight) {
       if (currentScrollY <= 80) {
         setNavTheme('transparent')
       } else {
         setNavTheme('white')
       }
-
-      if (timeoutRef.current) clearTimeout(timeoutRef.current)
-      timeoutRef.current = setTimeout(hideNavbar, 2000)
+      return
     }
+    setNavTheme('hidden')
+  }
+
+  const showNavbar = () => {
+    const currentScrollY = window.scrollY
+    if (currentScrollY <= 80) {
+      setNavTheme('transparent')
+    } else {
+      setNavTheme('white')
+    }
+
+    if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    timeoutRef.current = setTimeout(hideNavbar, 2000)
+  }
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY
@@ -221,13 +221,13 @@ export default function Navigation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="fixed inset-0 z-[999] bg-[#0a0e17] flex flex-col items-center justify-center gap-8 md:hidden"
+            className="fixed inset-0 z-[999] bg-[#f4f6f8] flex flex-col items-center justify-center gap-8 md:hidden"
           >
             {NAV_LINKS.map(({ label, href }) => (
               <a
                 key={href}
                 href={href}
-                className="text-[1.1rem] tracking-[0.28em] uppercase text-[#a3b3c2] font-light hover:text-[#f4f6f8] transition-colors"
+                className="text-[1.1rem] tracking-[0.28em] uppercase text-text-muted font-light hover:text-text-primary transition-colors"
                 onClick={(e) => {
                   e.preventDefault()
                   setMenuOpen(false)
@@ -241,7 +241,7 @@ export default function Navigation() {
             ))}
             <a
               href="#contact"
-              className="mt-4 text-[0.75rem] tracking-[0.22em] uppercase border border-white/10 px-8 py-3 text-[#f4f6f8] hover:border-white/30 transition-all font-light"
+              className="mt-4 text-[0.75rem] tracking-[0.22em] uppercase border border-border px-8 py-3 text-text-primary hover:border-border-strong hover:bg-black/5 transition-all font-light"
               onClick={(e) => {
                 e.preventDefault()
                 setMenuOpen(false)

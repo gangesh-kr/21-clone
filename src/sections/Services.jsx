@@ -29,7 +29,7 @@ const SERVICES = [
 
 export default function Services() {
   return (
-    <section id="services" className="section border-t border-[#2b3e50]/20">
+    <section id="services" className="section border-t border-border">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -46,14 +46,14 @@ export default function Services() {
             </h2>
           </div>
           <div className="lg:col-span-6">
-            <p className="text-sm text-[#a3b3c2] font-light leading-relaxed max-w-[500px]">
+            <p className="text-sm text-text-muted font-light leading-relaxed max-w-[500px]">
               We offer institutional trade capability. From negotiation structure and customs clearing to maritime transit compliance, our systems secure seamless resource movements across major continents.
             </p>
           </div>
         </div>
 
         {/* Vertical typographics lists */}
-        <div className="flex flex-col border-b border-[#2b3e50]/20">
+        <div className="flex flex-col border-b border-border">
           {SERVICES.map((svc, index) => (
             <motion.div
               key={svc.num}
@@ -61,21 +61,21 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.8 }}
-              className="border-t border-[#2b3e50]/20 py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start hover:text-white transition-colors group"
+              className="border-t border-border py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start hover:text-text-primary transition-colors group"
             >
-              <div className="lg:col-span-1 text-[11px] tracking-[0.25em] text-[#5d7488] font-mono">
+              <div className="lg:col-span-1 text-[11px] tracking-[0.25em] text-text-muted font-mono">
                 {svc.num}
               </div>
               <div className="lg:col-span-5">
-                <h3 className="text-lg font-sans uppercase tracking-[0.15em] text-[#f4f6f8] mb-1 font-light">
+                <h3 className="text-lg font-sans uppercase tracking-[0.15em] text-text-primary mb-1 font-light">
                   {svc.title}
                 </h3>
-                <span className="text-[9px] tracking-[0.2em] text-[#5d7488] block">
+                <span className="text-[9px] tracking-[0.2em] text-text-muted block">
                   {svc.subtitle}
                 </span>
               </div>
               <div className="lg:col-span-6">
-                <p className="text-[13px] text-[#a3b3c2] leading-relaxed font-light">
+                <p className="text-[13px] text-text-muted leading-relaxed font-light">
                   {svc.text}
                 </p>
               </div>

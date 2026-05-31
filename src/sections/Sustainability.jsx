@@ -29,7 +29,7 @@ const ESG_SECTORS = [
 
 export default function Sustainability() {
   return (
-    <section id="sustainability" className="section border-t border-[#2b3e50]/20">
+    <section id="sustainability" className="section border-t border-border">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -46,7 +46,7 @@ export default function Sustainability() {
             </h2>
           </div>
           <div className="lg:col-span-6">
-            <p className="text-sm text-[#a3b3c2] font-light leading-relaxed max-w-[500px]">
+            <p className="text-sm text-text-muted font-light leading-relaxed max-w-[500px]">
               We integrate risk management, environmental compliance, and social responsibility directly into our core trading frameworks, safeguarding long-term capital and resource reliability.
             </p>
           </div>
@@ -61,20 +61,20 @@ export default function Sustainability() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.8 }}
-              className="border-t border-[#2b3e50]/20 pt-8"
+              className="border-t border-border pt-8"
             >
-              <h3 className="text-lg font-sans uppercase tracking-[0.15em] text-[#f4f6f8] mb-4 font-light">
+              <h3 className="text-lg font-sans uppercase tracking-[0.15em] text-text-primary mb-4 font-light">
                 {sector.title}
               </h3>
-              <p className="text-[13px] text-[#a3b3c2] leading-relaxed font-light mb-6">
+              <p className="text-[13px] text-text-muted leading-relaxed font-light mb-6">
                 {sector.desc}
               </p>
               <ul className="flex flex-col gap-4 list-none p-0">
                 {sector.bullets.map((bullet, idx) => {
                   const [title, desc] = bullet.split(': ')
                   return (
-                    <li key={idx} className="text-xs text-[#a3b3c2]/80 leading-relaxed font-light pl-4 border-l border-[#2b3e50]/40">
-                      <strong className="text-[#f4f6f8] font-normal block mb-1 uppercase tracking-wider">{title}</strong>
+                    <li key={idx} className="text-xs text-text-muted/80 leading-relaxed font-light pl-4 border-l border-border-strong">
+                      <strong className="text-text-primary font-normal block mb-1 uppercase tracking-wider">{title}</strong>
                       {desc}
                     </li>
                   )

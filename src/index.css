@@ -10,18 +10,18 @@
   --color-fog-white: #f4f6f8;
   --color-glacier-gray: #dcdfe3;
   --color-pale-blue-gray: #a3b3c2;
-  --color-deep-slate-blue: #2b3e50;
-  --color-charcoal-navy: #0a0e17;
+  --color-deep-slate-blue: #1b365d;
+  --color-charcoal-navy: #f4f6f8;
 
-  --color-navy: #0a0e17;
-  --color-navy-mid: #0b0f19;
-  --color-navy-soft: #121824;
+  --color-navy: #cbd3db;
+  --color-navy-mid: #f4f6f8;
+  --color-navy-soft: #dcdfe3;
   --color-accent: #1b365d;
   /* Muted blue-gray */
-  --color-text-primary: #f4f6f8;
-  --color-text-muted: #a3b3c2;
-  --color-border: rgba(163, 179, 194, 0.08);
-  --color-border-strong: rgba(163, 179, 194, 0.16);
+  --color-text-primary: #1b365d;
+  --color-text-muted: #2d628c;
+  --color-border: rgba(27, 54, 93, 0.12);
+  --color-border-strong: rgba(27, 54, 93, 0.22);
   --color-ice-blue: #cbd5e1;
 
   --font-serif: 'Cormorant Garamond', serif;
@@ -62,8 +62,8 @@ a {
 }
 
 ::selection {
-  background-color: var(--color-deep-slate-blue);
-  color: var(--color-text-primary);
+  background-color: var(--color-pale-blue-gray);
+  color: var(--color-accent);
 }
 
 /* ─── Minimal Typography Scale ─── */
@@ -141,7 +141,7 @@ a {
   padding: 0.9rem 2.2rem;
   background: transparent;
   color: var(--color-text-primary);
-  border: 1px solid rgba(244, 246, 248, 0.2);
+  border: 1px solid rgba(27, 54, 93, 0.2);
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   display: inline-block;
@@ -149,7 +149,8 @@ a {
 
 .btn-primary:hover {
   border-color: var(--color-text-primary);
-  color: var(--color-fog-white);
+  color: var(--color-text-primary);
+  background: rgba(27, 54, 93, 0.05);
   letter-spacing: 0.28em;
 }
 

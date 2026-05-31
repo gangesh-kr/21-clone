@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 
 export default function Markets() {
   return (
-    <section id="markets" className="section border-t border-[#2b3e50]/20">
+    <section id="markets" className="section border-t border-border">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -36,17 +36,17 @@ export default function Markets() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.8 }}
-              className="border-t border-[#2b3e50]/20 pt-8"
+              className="border-t border-border pt-8"
             >
-              <h3 className="text-lg font-sans uppercase tracking-[0.15em] text-[#f4f6f8] mb-4 font-light">{m.title}</h3>
-              <p className="text-[13px] text-[#a3b3c2] leading-relaxed font-light">{m.text}</p>
+              <h3 className="text-lg font-sans uppercase tracking-[0.15em] text-text-primary mb-4 font-light">{m.title}</h3>
+              <p className="text-[13px] text-text-muted leading-relaxed font-light">{m.text}</p>
             </motion.div>
           ))}
         </div>
 
-        <div className="flex flex-wrap gap-x-8 gap-y-3 pt-8 border-t border-[#2b3e50]/20">
+        <div className="flex flex-wrap gap-x-8 gap-y-3 pt-8 border-t border-border">
           {['Middle East', 'Asia Pacific', 'Western Europe', 'CIS Regions'].map((geo) => (
-            <span key={geo} className="text-[10px] tracking-[0.25em] text-[#a3b3c2] uppercase font-light">
+            <span key={geo} className="text-[10px] tracking-[0.25em] text-text-muted uppercase font-light">
               {geo}
             </span>
           ))}

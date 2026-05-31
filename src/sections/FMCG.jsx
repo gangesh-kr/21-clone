@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 
 export default function FMCG() {
   return (
-    <section id="fmcg" className="section border-t border-[#2b3e50]/20">
+    <section id="fmcg" className="section border-t border-border">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -15,10 +15,10 @@ export default function FMCG() {
           <h2 className="heading-section mb-8">
             MARKET ACCESS &amp; HUB INTEGRATION
           </h2>
-          <p className="body-text mb-8 text-[#a3b3c2] font-light leading-relaxed">
+          <p className="body-text mb-8 text-text-muted font-light leading-relaxed">
             We provide specialized market access frameworks for Fast-Moving Consumer Goods (FMCG). Leveraging our local partnerships, trade links, and compliance expertise, we coordinate access to complex, high-volume consumer markets.
           </p>
-          <p className="body-text text-[#a3b3c2] font-light leading-relaxed">
+          <p className="body-text text-text-muted font-light leading-relaxed">
             Our systems manage customs, distributor networking, warehousing logistics, and regional regulatory clearances to unlock high-growth networks.
           </p>
         </div>
@@ -36,10 +36,10 @@ export default function FMCG() {
               text: 'Leveraging trade routes to connect consumer products with high-demand distribution links across India and Southern Asia.'
             },
           ].map((country) => (
-            <div key={country.num} className="border-t border-[#2b3e50]/20 pt-6">
-              <span className="text-[10px] tracking-[0.25em] text-[#5d7488] font-mono block mb-2">{country.num}</span>
-              <h4 className="heading-sub font-light mb-3 text-[#f4f6f8]">{country.title}</h4>
-              <p className="text-[13px] text-[#a3b3c2] leading-relaxed font-light">{country.text}</p>
+            <div key={country.num} className="border-t border-border pt-6">
+              <span className="text-[10px] tracking-[0.25em] text-text-muted font-mono block mb-2">{country.num}</span>
+              <h4 className="heading-sub font-light mb-3 text-text-primary">{country.title}</h4>
+              <p className="text-[13px] text-text-muted leading-relaxed font-light">{country.text}</p>
             </div>
           ))}
         </div>

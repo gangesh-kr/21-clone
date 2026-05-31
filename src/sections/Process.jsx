@@ -10,7 +10,7 @@ const STEPS = [
 
 export default function Process() {
   return (
-    <section id="process" className="section border-t border-[#2b3e50]/20">
+    <section id="process" className="section border-t border-border">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -23,7 +23,7 @@ export default function Process() {
           FIVE STAGES OF<br />FLAWLESS EXECUTION
         </h2>
 
-        <div className="flex flex-col border-b border-[#2b3e50]/20">
+        <div className="flex flex-col border-b border-border">
           {STEPS.map((step, index) => (
             <motion.div
               key={step.num}
@@ -31,16 +31,16 @@ export default function Process() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.08, duration: 0.8 }}
-              className="border-t border-[#2b3e50]/20 py-8 grid grid-cols-1 md:grid-cols-12 gap-4 items-baseline"
+              className="border-t border-border py-8 grid grid-cols-1 md:grid-cols-12 gap-4 items-baseline"
             >
-              <div className="md:col-span-1 text-[11px] tracking-[0.25em] text-[#5d7488] font-mono">
+              <div className="md:col-span-1 text-[11px] tracking-[0.25em] text-text-muted font-mono">
                 {step.num}
               </div>
               <div className="md:col-span-4">
-                <h4 className="heading-sub font-light text-[#f4f6f8]">{step.title}</h4>
+                <h4 className="heading-sub font-light text-text-primary">{step.title}</h4>
               </div>
               <div className="md:col-span-7">
-                <p className="text-[13px] text-[#a3b3c2] leading-relaxed font-light">{step.text}</p>
+                <p className="text-[13px] text-text-muted leading-relaxed font-light">{step.text}</p>
               </div>
             </motion.div>
           ))}

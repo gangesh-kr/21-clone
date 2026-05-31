@@ -8,7 +8,7 @@ const OFFICES = [
 
 export default function MapSection() {
   return (
-    <section id="markets-map" className="section border-t border-[#2b3e50]/20">
+    <section id="markets-map" className="section border-t border-border">
       <div className="max-w-7xl mx-auto">
         
         {/* Header */}
@@ -20,20 +20,20 @@ export default function MapSection() {
             </h2>
           </div>
           <div className="lg:col-span-6">
-            <p className="text-sm text-[#a3b3c2] font-light leading-relaxed max-w-[500px]">
+            <p className="text-sm text-text-muted font-light leading-relaxed max-w-[500px]">
               We operate from the world's most critical financial and commercial junctions. Our headquarters in Dubai is anchored by operational hubs in Geneva and Singapore, providing continuous coverage across major time zones.
             </p>
           </div>
         </div>
 
         {/* Minimal Typographic Layout for Hubs */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pt-12 border-t border-[#2b3e50]/20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pt-12 border-t border-border">
           {OFFICES.map((office) => (
             <div key={office.name} className="flex flex-col gap-3">
-              <span className="text-[10px] tracking-[0.25em] text-[#5d7488] font-mono">{office.region}</span>
-              <h4 className="text-xl font-sans uppercase tracking-[0.15em] text-[#f4f6f8] font-light">{office.name}</h4>
-              <span className="text-[11px] tracking-[0.1em] text-[#a3b3c2] font-light uppercase">{office.role}</span>
-              <p className="text-xs text-[#a3b3c2]/70 font-light leading-relaxed mt-2">
+              <span className="text-[10px] tracking-[0.25em] text-text-muted font-mono">{office.region}</span>
+              <h4 className="text-xl font-sans uppercase tracking-[0.15em] text-text-primary font-light">{office.name}</h4>
+              <span className="text-[11px] tracking-[0.1em] text-text-muted font-light uppercase">{office.role}</span>
+              <p className="text-xs text-text-muted/75 font-light leading-relaxed mt-2">
                 {office.address}
               </p>
             </div>
@@ -41,15 +41,15 @@ export default function MapSection() {
         </div>
 
         {/* Stylized Minimal Vector Map (no grids, no tech elements, extremely clean) */}
-        <div className="relative w-full aspect-[2/1] min-h-[250px] md:min-h-[400px] border border-[#2b3e50]/15 mt-20 flex items-center justify-center p-4">
+        <div className="relative w-full aspect-[2/1] min-h-[250px] md:min-h-[400px] border border-border mt-20 flex items-center justify-center p-4">
           <svg
             viewBox="0 0 1000 500"
-            className="w-full h-full opacity-30"
+            className="w-full h-full opacity-45 text-text-muted"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
             {/* Outline of World Continents */}
-            <g stroke="#2b3e50" strokeWidth="0.8" fill="none">
+            <g stroke="currentColor" strokeWidth="0.8" fill="none">
               {/* North America */}
               <path d="M120,100 L180,80 L250,110 L280,180 L220,240 L160,250 L120,200 Z" />
               {/* South America */}
@@ -79,8 +79,8 @@ export default function MapSection() {
               className="absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-1 z-10"
             >
               {/* Clean tiny white dot */}
-              <span className="inline-flex rounded-full h-2 w-2 bg-white border border-[#2b3e50] shadow-sm" />
-              <span className="text-[9px] tracking-[0.15em] uppercase text-[#a3b3c2] bg-[#0a0e17]/80 px-2 py-0.5 mt-1 border border-[#2b3e50]/20 font-mono">
+              <span className="inline-flex rounded-full h-2 w-2 bg-white border border-text-primary shadow-sm" />
+              <span className="text-[9px] tracking-[0.15em] uppercase text-text-primary bg-white/95 px-2 py-0.5 mt-1 border border-border font-mono shadow-sm">
                 {pin.name}
               </span>
             </div>

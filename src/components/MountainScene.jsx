@@ -515,11 +515,11 @@ export default function MountainScene() {
         const heroHeight = window.innerHeight
         const heroPercent = Math.min(scrollY / heroHeight, 1.0)
 
-        // ── Background color transition: glacier gray → charcoal navy ──
+        // ── Background color transition: glacier gray → fog white ──
         if (wrapperRef.current) {
-          const r = Math.round(203 + (10 - 203) * heroPercent)
-          const g = Math.round(211 + (14 - 211) * heroPercent)
-          const b = Math.round(219 + (23 - 219) * heroPercent)
+          const r = Math.round(203 + (244 - 203) * heroPercent)
+          const g = Math.round(211 + (246 - 211) * heroPercent)
+          const b = Math.round(219 + (248 - 219) * heroPercent)
           wrapperRef.current.style.backgroundColor = `rgb(${r},${g},${b})`
         }
 
@@ -605,7 +605,7 @@ export default function MountainScene() {
           position: 'absolute',
           inset: 0,
           background:
-            'radial-gradient(ellipse at center, transparent 55%, rgba(10,14,23,0.45) 100%)',
+            'radial-gradient(ellipse at center, transparent 55%, rgba(27,54,93,0.15) 100%)',
           pointerEvents: 'none',
         }}
       />
