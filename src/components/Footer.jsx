@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="relative z-10 bg-white text-[#1b365d] pt-24 pb-16 px-[10.3%] border-t border-[#1b365d]/10">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
-          
+
           {/* Column 1: Logo & Group Navigation */}
           <div className="flex flex-col justify-between min-h-[220px]">
             <div>
@@ -15,7 +15,7 @@ export default function Footer() {
                 className="w-[34px] h-[34px] rounded-full border border-[#1b365d]/60 hover:border-[#1b365d] hover:bg-[#1b365d]/5 hover:scale-105 active:scale-95 transition-all duration-300 mb-8 cursor-none focus:outline-none flex items-center justify-center"
                 aria-label="Scroll to top"
               /> */}
-              
+
               <div className="flex flex-col gap-3 text-[9px] tracking-[0.22em] font-light">
                 <a href="#group" className="hover:text-[#1b365d]/60 transition-colors uppercase">TWENTY1GLOBAL GROUP</a>
                 <a href="#trading" className="hover:text-[#1b365d]/60 transition-colors uppercase">TWENTY1GLOBAL TRADING</a>
@@ -44,7 +44,7 @@ export default function Footer() {
                 Switzerland
               </p>
             </div>
-            
+
             <div className="text-[10px] font-light tracking-[0.08em] mt-8 text-[#1b365d] hover:text-[#1b365d]/70 transition-colors">
               <a href="mailto:geneva@twenty1global.com">geneva@twenty1global.com</a>
             </div>
@@ -61,7 +61,7 @@ export default function Footer() {
                 Dubai, United Arab Emirates
               </p>
             </div>
-            
+
             <div className="text-[10px] font-light tracking-[0.08em] mt-8 text-[#1b365d] hover:text-[#1b365d]/70 transition-colors">
               <a href="mailto:info@twenty1global.com">info@twenty1global.com</a>
             </div>
@@ -78,7 +78,7 @@ export default function Footer() {
                 Singapore 049315
               </p>
             </div>
-            
+
             <div className="text-[10px] font-light tracking-[0.08em] mt-8 text-[#1b365d] hover:text-[#1b365d]/70 transition-colors">
               <a href="mailto:singapore@twenty1global.com">singapore@twenty1global.com</a>
             </div>

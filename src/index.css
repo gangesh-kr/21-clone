@@ -392,6 +392,7 @@ html.lenis body {
 
 /* ─── Hide Default Cursor on Desktop ─── */
 @media (pointer: fine) {
+
   body,
   a,
   button,
